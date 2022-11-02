@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool canMove = true;
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -28,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -38,63 +36,42 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Rotate(Vector3.up * horizontal * turnSpeed * Time.deltaTime);
 
-        //transform.Rotate(Vector3.right * vertical * turnSpeed * Time.deltaTime);
+        Camera.main.transform.Rotate(-vertical * turnSpeed * Time.deltaTime, 0, 0);
 
 
         if (canMove == true)
         {
 
 
-
             if (Input.GetKey(KeyCode.W))
             {
-
-                rb.velocity = transform.forward * moveSpeed * Time.deltaTime;
-
-
-
-
-
-                //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-
+                Vector3 velocity = transform.forward * moveSpeed * Time.deltaTime;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
-
-
             else if (Input.GetKey(KeyCode.S))
             {
-
-
-                rb.velocity = transform.forward * -moveSpeed * Time.deltaTime;
-
-
-
-                //transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
-
+                Vector3 velocity = transform.forward * -moveSpeed * Time.deltaTime;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
-
-
-
             else if (Input.GetKey(KeyCode.A))
             {
-
-                rb.velocity = transform.right * -moveSpeed * Time.deltaTime;
-
+                Vector3 velocity = transform.right * -moveSpeed * Time.deltaTime;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
-
             else if (Input.GetKey(KeyCode.D))
             {
-
-                rb.velocity = transform.right * moveSpeed * Time.deltaTime;
-
+                Vector3 velocity = transform.right * moveSpeed * Time.deltaTime;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
-
             else
             {
-
-                rb.velocity = transform.right * 0 * Time.deltaTime;
-
-                rb.velocity = transform.forward * 0 * Time.deltaTime;
-
+                Vector3 velocity = Vector3.zero;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
 
         }
