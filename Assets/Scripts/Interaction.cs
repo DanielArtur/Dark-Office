@@ -14,7 +14,7 @@ public class Interaction : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactLayer);
             foreach (var hitCollider in hitColliders)
             {
-                Interface interaction = hitCollider.GetComponent<Interface>();
+                IInteraction interaction = hitCollider.GetComponent<IInteraction>();
                 if (interaction != null)
                     interaction.Interact();
                 
