@@ -25,11 +25,13 @@ public class CodeTag : MonoBehaviour, IInteraction
             isActive = true;
             textContainer.text = codeStorage;
             Debug.Log("Aktivoitu UI");
+            PlayerMovement.canMove = false;
         }
         else {
             UI.gameObject.SetActive(false);
             isActive = false;
             Debug.Log("Deaktivoitu UI");
+            PlayerMovement.canMove = true;
         }
     }
 

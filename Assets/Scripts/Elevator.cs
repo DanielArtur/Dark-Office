@@ -25,12 +25,14 @@ public class Elevator : MonoBehaviour, IInteraction
         {
             passCodeInputField.gameObject.SetActive(true);
             isActive = true;
+            //Cursor.lockState = CursorLockMode.None;
             Debug.Log("Aktivoitu UI");
         }
         else
         {
             passCodeInputField.gameObject.SetActive(false);
             isActive = false;
+            //Cursor.lockState = CursorLockMode.Locked;
             CheckCode();
             Debug.Log("Deaktivoitu UI");
         }
@@ -61,5 +63,10 @@ public class Elevator : MonoBehaviour, IInteraction
         if (codeTag.codeStorage != passCodeInputField.text)
             return;
         Debug.Log("Hissi avautuu");
+        // Aloita hissi-animaatio
+        // Sulje ovet
+        // Joku pelaajan teleporttaus sekä pieni viive
+        // Avaa seuraavan kerroksen ovet
+        // Sulje niiden ovet
     }
 }
