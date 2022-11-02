@@ -16,13 +16,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
 
-    private bool canMove = true;
+    public static bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         rb = GetComponent<Rigidbody>();
 

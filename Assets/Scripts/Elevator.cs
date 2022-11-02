@@ -25,12 +25,14 @@ public class Elevator : MonoBehaviour, IInteraction
         {
             passCodeInputField.gameObject.SetActive(true);
             isActive = true;
+            //Cursor.lockState = CursorLockMode.None;
             Debug.Log("Aktivoitu UI");
         }
         else
         {
             passCodeInputField.gameObject.SetActive(false);
             isActive = false;
+            //Cursor.lockState = CursorLockMode.Locked;
             CheckCode();
             Debug.Log("Deaktivoitu UI");
         }
