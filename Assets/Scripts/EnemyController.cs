@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float checkTurnSpeed;
     private float checkTurnedAmount;
 
+    [Header("Player")]
     [SerializeField] private Transform player;
 
     private EnemyState state;
