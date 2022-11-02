@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
 
-    private bool canMove = true;
+    public static bool canMove = true;
 
     void Start()
     {
