@@ -63,5 +63,10 @@ public class Elevator : MonoBehaviour, IInteraction
         if (codeTag.codeStorage != passCodeInputField.text)
             return;
         Debug.Log("Hissi avautuu");
+        // Aloita hissi-animaatio
+        // Sulje ovet
+        // Joku pelaajan teleporttaus sekä pieni viive
+        // Avaa seuraavan kerroksen ovet
+        // Sulje niiden ovet
     }
 }
