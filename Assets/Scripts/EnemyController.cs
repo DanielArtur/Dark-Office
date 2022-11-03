@@ -51,47 +51,8 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (agent.isOnOffMeshLink)
-        {
-            if (agent.currentOffMeshLinkData.offMeshLink)
-            {
-                DoorInteraction door = agent.currentOffMeshLinkData.offMeshLink.gameObject.GetComponent<DoorInteraction>();
-                
-                if(door != null)
-                {
-                    if (door.IsOpen)
-                    {
-                        Vector3 targetDirection = agent.currentOffMeshLinkData.endPos - transform.position;
-                        targetDirection.y = 0;
-                        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetDirection), doorTurnSpeed);
-
-                        Vector3 movement = Vector3.MoveTowards(transform.position, agent.currentOffMeshLinkData.endPos, doorMoveSpeed);
-                        movement.y = transform.position.y;
-                        transform.position = movement;
-
-                        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(agent.currentOffMeshLinkData.endPos.x, agent.currentOffMeshLinkData.endPos.z)) < 0.01)
-                        {
-                            agent.CompleteOffMeshLink();
-                            door.Interact();
-                        }
-                    }
-                    else if (!door.IsActionRunning)
-                    {
-                        door.Interact();
-                    }
-                }
-                else
-                {
-                    agent.CompleteOffMeshLink();
-                }
-            }
-            else
-            {
-                agent.CompleteOffMeshLink();
-            }
-
+        if (HandleOffMeshLink())
             return;
-        }
 
         if (state == EnemyState.patrol)
             Patrol();
@@ -101,6 +62,47 @@ public class EnemyController : MonoBehaviour
             Check();
         else if (state == EnemyState.checkturn)
             CheckTurn();
+    }
+
+    private bool HandleOffMeshLink()
+    {
+        if (!agent.isOnOffMeshLink)
+            return false;
+        if (!agent.currentOffMeshLinkData.offMeshLink)
+        {
+            agent.CompleteOffMeshLink();
+            return true;
+        }
+
+        DoorInteraction door = agent.currentOffMeshLinkData.offMeshLink.gameObject.GetComponent<DoorInteraction>();
+        if (door == null)
+        {
+            agent.CompleteOffMeshLink();
+            return true;
+        }
+
+        if (door.IsOpen)
+        {
+            Vector3 targetDirection = agent.currentOffMeshLinkData.endPos - transform.position;
+            targetDirection.y = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetDirection), doorTurnSpeed);
+
+            Vector3 movement = Vector3.MoveTowards(transform.position, agent.currentOffMeshLinkData.endPos, doorMoveSpeed);
+            movement.y = transform.position.y;
+            transform.position = movement;
+
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(agent.currentOffMeshLinkData.endPos.x, agent.currentOffMeshLinkData.endPos.z)) < 0.01)
+            {
+                agent.CompleteOffMeshLink();
+                door.Interact();
+            }
+        }
+        else if (!door.IsActionRunning)
+        {
+            door.Interact();
+        }
+
+        return true;
     }
 
     private void Chase()
