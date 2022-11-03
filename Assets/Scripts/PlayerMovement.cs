@@ -16,11 +16,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
 
-    private bool canMove = true;
+    public static bool canMove = true;
+
 
     public AudioManager aM;
 
     // Start is called before the first frame update
+
     void Start()
     {
 
@@ -34,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -51,56 +52,37 @@ public class PlayerMovement : MonoBehaviour
         {
 
 
-
             if (Input.GetKey(KeyCode.W))
             {
 
-                rb.velocity = transform.forward * moveSpeed * Time.deltaTime;
-
-                
-
-
-
-                //transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+                Vector3 velocity = transform.forward * moveSpeed * Time.deltaTime;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
 
             }
-
-
             else if (Input.GetKey(KeyCode.S))
             {
-
-
-                rb.velocity = transform.forward * -moveSpeed * Time.deltaTime;
-
-
-
-                //transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
-
+                Vector3 velocity = transform.forward * -moveSpeed * Time.deltaTime;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
-
-
-
             else if (Input.GetKey(KeyCode.A))
             {
-
-                rb.velocity = transform.right * -moveSpeed * Time.deltaTime;
-
+                Vector3 velocity = transform.right * -moveSpeed * Time.deltaTime;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
-
             else if (Input.GetKey(KeyCode.D))
             {
-
-                rb.velocity = transform.right * moveSpeed * Time.deltaTime;
-
+                Vector3 velocity = transform.right * moveSpeed * Time.deltaTime;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
-
             else
             {
-
-                rb.velocity = transform.right * 0 * Time.deltaTime;
-
-                rb.velocity = transform.forward * 0 * Time.deltaTime;
-
+                Vector3 velocity = Vector3.zero;
+                velocity.y = rb.velocity.y;
+                rb.velocity = velocity;
             }
 
             
