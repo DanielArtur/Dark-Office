@@ -9,9 +9,9 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource[] mySounds;
 
-    private AudioSource sound;
-    private AudioSource sound2;
-
+    private AudioSource menuMusic;
+    private AudioSource winMusic;
+    private AudioSource chaseMusic;
 
 
     
@@ -33,9 +33,11 @@ public class AudioManager : MonoBehaviour
 
         mySounds = GetComponents<AudioSource>();
 
-        sound = mySounds[0];
+        menuMusic = mySounds[0];
 
-        sound2 = mySounds[1];
+        winMusic = mySounds[1];
+
+        chaseMusic = mySounds[2];
 
 
     }
@@ -47,24 +49,40 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    public void PlaySound()
+    public void PlayMenuMusic()
     {
 
-        sound.Play();
+        menuMusic.Play();
 
         print("hello");
 
     }
 
-    public void PlaySound2()
+    public void PlayWinMusic()
     {
 
-        sound2.Play();
+        winMusic.Play();
 
         print("moi");
 
     }
 
+    public void PlayChaseMusic()
+    {
+
+        chaseMusic.Play();
+
+        
+    }
+
+    public void StopChaseMuscic()
+    {
+
+
+        chaseMusic.Stop();
+
+
+    }
 
 
 }

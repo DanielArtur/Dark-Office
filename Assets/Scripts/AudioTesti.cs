@@ -24,7 +24,7 @@ public class AudioTesti : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
 
-            aM.PlaySound2();
+            aM.PlayWinMusic();
 
             LG.winGame();
 

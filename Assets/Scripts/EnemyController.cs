@@ -42,6 +42,8 @@ public class EnemyController : MonoBehaviour
     private EnemyState state;
     private bool isAttacking;
 
+    public AudioManager AM;
+
     public enum EnemyState
     {
         patrol,
@@ -180,6 +182,8 @@ public class EnemyController : MonoBehaviour
             currentPatrolPoint = -1;
             state = EnemyState.patrol;
             agent.speed = walkingSpeed;
+
+            AM.StopChaseMuscic();
         }
     }
 
@@ -192,6 +196,9 @@ public class EnemyController : MonoBehaviour
 
             state = EnemyState.chase;
             agent.speed = sprintingSpeed;
+
+            AM.PlayChaseMusic();
+
         }
         else if (patrolTurnTarget != null)
         {
