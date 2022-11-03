@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
     private float checkTurnedAmount;
 
     [Header("Other")]
+    [SerializeField] private float walkingSpeed;
+    [SerializeField] private float sprintingSpeed;
     [SerializeField] private float doorMoveSpeed;
 
     [SerializeField] private Transform player;
@@ -41,6 +43,7 @@ public class EnemyController : MonoBehaviour
     {
         currentPatrolPoint = -1;
         state = EnemyState.patrol;
+        agent.speed = walkingSpeed;
 
         agent.autoTraverseOffMeshLink = false;
     }
@@ -129,6 +132,7 @@ public class EnemyController : MonoBehaviour
         {
             currentPatrolPoint = -1;
             state = EnemyState.patrol;
+            agent.speed = walkingSpeed;
         }
     }
 
@@ -140,6 +144,7 @@ public class EnemyController : MonoBehaviour
             patrolTurnTarget = null;
 
             state = EnemyState.chase;
+            agent.speed = sprintingSpeed;
         }
         else if (patrolTurnTarget != null)
         {
