@@ -7,6 +7,8 @@ public class AudioTesti : MonoBehaviour
 
     public AudioManager aM;
 
+    public WinGame LG;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,8 @@ public class AudioTesti : MonoBehaviour
         {
 
             aM.PlaySound2();
+
+            LG.winGame();
 
         }
 
