@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float checkTurnSpeed;
     private float checkTurnedAmount;
 
+    [Header("Attack")]
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float attackDistance;
+    [SerializeField] private float attackEndTime;
+
     [Header("Other")]
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
@@ -33,8 +39,8 @@ public class EnemyController : MonoBehaviour
     [Header("Enemy Animator Controller")]
     [SerializeField] private EnemyAnimationController enemyAnimationController;
 
-    [Header("Current State")]
-    public EnemyState state;
+    private EnemyState state;
+    private bool isAttacking;
 
     public enum EnemyState
     {
@@ -114,9 +120,35 @@ public class EnemyController : MonoBehaviour
         agent.SetDestination(player.position);
 
         if (!CheckView())
+        {
             state = EnemyState.check;
+        }
+        else if (!isAttacking)
+        {
+            Collider[] targets = Physics.OverlapSphere(attackPoint.position, attackDistance);
+            for(int i = 0; i < targets.Length; i++)
+            {
+                if (targets[i].CompareTag("Player"))
+                {
+                    StartCoroutine(Attack());
+                    break;
+                }
+            }
+        }
 
         enemyAnimationController.StartRunAnimation();
+    }
+
+    private IEnumerator Attack()
+    {
+        isAttacking = true;
+
+        enemyAnimationController.StartAttackAnimation();
+
+        yield return new WaitForSeconds(attackEndTime);
+
+        //Death
+        Debug.Log("Death");
     }
 
     private void Check()

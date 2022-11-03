@@ -35,6 +35,8 @@ public class EnemyAnimationController : MonoBehaviour
         animator.SetBool("Walk", false);
     }
 
-
-
+    public void StartAttackAnimation()
+    {
+        animator.SetTrigger("Punch");
+    }
 }

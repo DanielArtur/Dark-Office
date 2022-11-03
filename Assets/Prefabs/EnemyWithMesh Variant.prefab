@@ -451,6 +451,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 72697942889462596}
+  - {fileID: 5184052567609273537}
   - {fileID: 72697943505222668}
   - {fileID: 72697942254562360}
   m_Father: {fileID: 0}
@@ -550,9 +551,15 @@ MonoBehaviour:
   patrolPath: {fileID: 0}
   patrolTurnSpeed: 0.1
   checkTurnSpeed: 3.6
+  attackPoint: {fileID: 5184052567609273537}
+  attackDistance: 1.5
+  attackEndTime: 5
+  walkingSpeed: 2
+  sprintingSpeed: 3.5
+  doorMoveSpeed: 0.1
+  doorTurnSpeed: 0.15
   player: {fileID: 0}
   enemyAnimationController: {fileID: 72697942029428061}
-  state: 0
 --- !u!82 &72697941962771670
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1032,7 +1039,7 @@ Transform:
   - {fileID: 72697941516495901}
   - {fileID: 72697943105147905}
   m_Father: {fileID: 72697941962771674}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!95 &72697942254562359
 Animator:
@@ -2337,7 +2344,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 72697941962771674}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &72697943505222670
 MeshFilter:
@@ -2453,3 +2460,34 @@ Transform:
   m_Father: {fileID: 72697942010882100}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -20.099794, y: -4.510933, z: 7.027503}
+--- !u!1 &3845775267090233928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5184052567609273537}
+  m_Layer: 2
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5184052567609273537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845775267090233928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.64}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 72697941962771674}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
