@@ -12,6 +12,8 @@ public class Elevator : MonoBehaviour, IInteraction
     static bool isActive = false;
     //public TextMeshProUGUI playerInput;
 
+    [SerializeField] Animator elevatorAnimator;
+
 
 
 
@@ -62,9 +64,22 @@ public class Elevator : MonoBehaviour, IInteraction
     {
         if (codeTag.codeStorage != passCodeInputField.text)
             return;
-        Debug.Log("Hissi avautuu");
+
+        //Debug.Log("Hissi avautuu");
         // Aloita hissi-animaatio
         // Sulje ovet
+        // Elevator open doors
+        elevatorAnimator.SetBool("canOpen", true);
+
+        //ELI kun pelaaja saa koodin auki, hissi avautuu,
+        //oottaa 2 sekkaa,(kun osuu collideriin (katso ElevatorTP)) hissi sulkeutuu ja kun pelaaja on teleportattu,
+        //toisen hissin ovi avautuu ja kun on ulkona(tarvitaan collider) tyylii ovi suljetaan esim.
+
+        //elevatorAnimator.SetBool("canOpen", false);
+
+        //elevatorAnimator.SetBool("canClose", true);
+
+        //elevatorAnimator.SetBool("canClose", false);
         // Joku pelaajan teleporttaus sekä pieni viive
         // Avaa seuraavan kerroksen ovet
         // Sulje niiden ovet
