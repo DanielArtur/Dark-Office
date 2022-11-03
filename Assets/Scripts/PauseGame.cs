@@ -35,13 +35,9 @@ public class PauseGame : MonoBehaviour
 
             Time.timeScale = 0f;
 
+            Cursor.lockState = CursorLockMode.None;
+
         }
-
-
-
-
-
-
 
 
 
