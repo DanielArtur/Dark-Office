@@ -18,12 +18,21 @@ public class PlayerMovement : MonoBehaviour
 
     public static bool canMove = true;
 
+
+    public AudioManager aM;
+
+    // Start is called before the first frame update
+
     void Start()
     {
 
         Cursor.lockState = CursorLockMode.Locked;
 
         rb = GetComponent<Rigidbody>();
+
+        //aM = GetComponent<AudioManager>();
+
+        //aM = FindObjectOfType<AudioManager>();
 
     }
 
@@ -34,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
         vertical = Input.GetAxis("Mouse Y");
 
-        transform.Rotate(Vector3.up * horizontal * turnSpeed * Time.deltaTime);
+        transform.Rotate(0, horizontal * turnSpeed * Time.deltaTime, 0);
 
         Camera.main.transform.Rotate(-vertical * turnSpeed * Time.deltaTime, 0, 0);
 
@@ -45,9 +54,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.W))
             {
+
                 Vector3 velocity = transform.forward * moveSpeed * Time.deltaTime;
                 velocity.y = rb.velocity.y;
                 rb.velocity = velocity;
+
             }
             else if (Input.GetKey(KeyCode.S))
             {
@@ -74,6 +85,13 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = velocity;
             }
 
+            
+        
+        
+        
+        
+        
+        
         }
 
     }

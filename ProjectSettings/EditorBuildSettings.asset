@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EnemyTest.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: d8ed608e4bdcc2e40bb1d68433c1d49b
+  - enabled: 1
+    path: Assets/Scenes/Movement.unity
+    guid: e689acf985efc7648b4bacbc941bbb8d
   m_configObjects: {}
