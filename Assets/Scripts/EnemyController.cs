@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
     [SerializeField] private float doorMoveSpeed;
+    [SerializeField] private float doorTurnSpeed;
 
     [SerializeField] private Transform player;
 
@@ -60,6 +61,10 @@ public class EnemyController : MonoBehaviour
                 {
                     if (door.IsOpen)
                     {
+                        Vector3 targetDirection = agent.currentOffMeshLinkData.endPos - transform.position;
+                        targetDirection.y = 0;
+                        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetDirection), doorTurnSpeed);
+
                         Vector3 movement = Vector3.MoveTowards(transform.position, agent.currentOffMeshLinkData.endPos, doorMoveSpeed);
                         movement.y = transform.position.y;
                         transform.position = movement;
