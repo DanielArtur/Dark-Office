@@ -25,9 +25,13 @@ public class EnemyController : MonoBehaviour
     [Header("Player")]
     [SerializeField] private Transform player;
 
-    private EnemyState state;
+    [Header("Enemy Animator Controller")]
+    [SerializeField] private EnemyAnimationController enemyAnimationController;
 
-    private enum EnemyState
+    [Header("Current State")]
+    public EnemyState state;
+
+    public enum EnemyState
     {
         patrol,
         chase,
@@ -59,6 +63,8 @@ public class EnemyController : MonoBehaviour
 
         if (!CheckView())
             state = EnemyState.check;
+
+        enemyAnimationController.StartRunAnimation();
     }
 
     private void Check()
@@ -79,6 +85,8 @@ public class EnemyController : MonoBehaviour
         transform.Rotate(0, checkTurnSpeed, 0);
         checkTurnedAmount += checkTurnSpeed;
 
+        enemyAnimationController.StartIdleAnimation();
+
         if (CheckView())
         {
             state = EnemyState.chase;
@@ -98,6 +106,8 @@ public class EnemyController : MonoBehaviour
             patrolTurnTarget = null;
 
             state = EnemyState.chase;
+
+
         }
         else if (patrolTurnTarget != null)
         {
@@ -118,6 +128,9 @@ public class EnemyController : MonoBehaviour
         {
             NextPatrolPoint();
         }
+
+
+        enemyAnimationController.StartWalkAnimation();
     }
 
     public void NextPatrolPoint()
