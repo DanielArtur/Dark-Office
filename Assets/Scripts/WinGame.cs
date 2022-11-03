@@ -10,7 +10,7 @@ public class WinGame : MonoBehaviour
 
     public GameObject mainMenuButton;
 
-
+    public AudioManager AM;
 
 
 
@@ -26,7 +26,10 @@ public class WinGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         
+
+
     }
 
     public void winGame()
@@ -40,6 +43,7 @@ public class WinGame : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
 
+        AM.PlayWinMusic();
 
     }
 
@@ -49,12 +53,22 @@ public class WinGame : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
 
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
 
+        if (other.gameObject.CompareTag("WinGame"))
+        {
+
+            winGame();
+
+        }
+
+    }
 
 
 
