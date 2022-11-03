@@ -22,7 +22,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float checkTurnSpeed;
     private float checkTurnedAmount;
 
-    [Header("Player")]
+    [Header("Other")]
+    [SerializeField] private float doorMoveSpeed;
+
     [SerializeField] private Transform player;
 
     private EnemyState state;
@@ -39,10 +41,50 @@ public class EnemyController : MonoBehaviour
     {
         currentPatrolPoint = -1;
         state = EnemyState.patrol;
+
+        agent.autoTraverseOffMeshLink = false;
     }
 
     private void FixedUpdate()
     {
+        if (agent.isOnOffMeshLink)
+        {
+            if (agent.currentOffMeshLinkData.offMeshLink)
+            {
+                DoorInteraction door = agent.currentOffMeshLinkData.offMeshLink.gameObject.GetComponent<DoorInteraction>();
+                
+                if(door != null)
+                {
+                    if (door.IsOpen)
+                    {
+                        Vector3 movement = Vector3.MoveTowards(transform.position, agent.currentOffMeshLinkData.endPos, doorMoveSpeed);
+                        movement.y = transform.position.y;
+                        transform.position = movement;
+
+                        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(agent.currentOffMeshLinkData.endPos.x, agent.currentOffMeshLinkData.endPos.z)) < 0.01)
+                        {
+                            agent.CompleteOffMeshLink();
+                            door.Interact();
+                        }
+                    }
+                    else if (!door.IsActionRunning)
+                    {
+                        door.Interact();
+                    }
+                }
+                else
+                {
+                    agent.CompleteOffMeshLink();
+                }
+            }
+            else
+            {
+                agent.CompleteOffMeshLink();
+            }
+
+            return;
+        }
+
         if (state == EnemyState.patrol)
             Patrol();
         else if (state == EnemyState.chase)
