@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 
-    private float moveSpeed = 1000;
+    private float moveSpeed = 500;
 
     private float turnSpeed = 150;
 
