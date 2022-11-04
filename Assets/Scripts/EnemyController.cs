@@ -112,7 +112,12 @@ public class EnemyController : MonoBehaviour
         else if (!door.IsActionRunning)
         {
             door.Interact();
-        }
+        } 
+        
+        else
+            enemyAnimationController.StartIdleAnimation();
+
+        
 
         return true;
     }
@@ -149,8 +154,7 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(attackEndTime);
 
-        //Death
-        Debug.Log("Death");
+        
     }
 
     private void Check()
@@ -183,7 +187,7 @@ public class EnemyController : MonoBehaviour
             state = EnemyState.patrol;
             agent.speed = walkingSpeed;
 
-            AM.StopChaseMuscic();
+           // AM.StopChaseMuscic();
         }
     }
 
@@ -197,7 +201,7 @@ public class EnemyController : MonoBehaviour
             state = EnemyState.chase;
             agent.speed = sprintingSpeed;
 
-            AM.PlayChaseMusic();
+            //M.PlayChaseMusic();
 
         }
         else if (patrolTurnTarget != null)

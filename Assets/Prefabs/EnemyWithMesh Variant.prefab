@@ -560,6 +560,7 @@ MonoBehaviour:
   doorTurnSpeed: 0.15
   player: {fileID: 0}
   enemyAnimationController: {fileID: 72697942029428061}
+  AM: {fileID: 0}
 --- !u!82 &72697941962771670
 AudioSource:
   m_ObjectHideFlags: 0
@@ -677,7 +678,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cb599867114396b4b88ac9bec7126fbb, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.906
+  m_Volume: 0.193
   m_Pitch: 1
   Loop: 1
   Mute: 0
