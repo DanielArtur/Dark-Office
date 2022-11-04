@@ -208,7 +208,7 @@ public class EnemyController : MonoBehaviour
                 patrolTurnTarget = null;
             }
         }
-        else if (agent.remainingDistance < agent.stoppingDistance + 0.5)
+        else if (agent.remainingDistance < agent.stoppingDistance + 0.5 && !agent.pathPending)
         {
             NextPatrolPoint();
         }
