@@ -31,6 +31,8 @@ public class Elevator : MonoBehaviour, IInteraction
             passCodeInputField.ActivateInputField();
             isActive = true;
 
+            PlayerMovementv2.lockMovement = true;
+            CameraController.lockCamera = true;
             Debug.Log("Aktivoitu UI");
         }
         else
@@ -38,6 +40,9 @@ public class Elevator : MonoBehaviour, IInteraction
             passCodeInputField.gameObject.SetActive(false);
             isActive = false;
             CheckCode();
+
+            PlayerMovementv2.lockMovement = false;
+            CameraController.lockCamera = false;
 
             // Reset the input
             passCodeInputField.text = "";

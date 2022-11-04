@@ -25,13 +25,19 @@ public class CodeTag : MonoBehaviour, IInteraction
             isActive = true;
             textContainer.text = codeStorage;
             Debug.Log("Aktivoitu UI");
-            PlayerMovement.canMove = false;
+            
+            PlayerMovementv2.lockMovement = true;
+            CameraController.lockCamera = true;
         }
         else {
             UI.gameObject.SetActive(false);
             isActive = false;
+
+            PlayerMovementv2.lockMovement = false;
+            CameraController.lockCamera = false;
+
             Debug.Log("Deaktivoitu UI");
-            PlayerMovement.canMove = true;
+
         }
     }
 
