@@ -28,16 +28,20 @@ public class Elevator : MonoBehaviour, IInteraction
         if (!isActive)
         {
             passCodeInputField.gameObject.SetActive(true);
+            passCodeInputField.ActivateInputField();
             isActive = true;
-            Cursor.lockState = CursorLockMode.None;
+
             Debug.Log("Aktivoitu UI");
         }
         else
         {
             passCodeInputField.gameObject.SetActive(false);
             isActive = false;
-            Cursor.lockState = CursorLockMode.Locked;
             CheckCode();
+
+            // Reset the input
+            passCodeInputField.text = "";
+
             Debug.Log("Deaktivoitu UI");
         }
         /*passCodeInputField.SetActive(true);
@@ -55,6 +59,8 @@ public class Elevator : MonoBehaviour, IInteraction
     {
         if (codeTag.codeStorage != passCodeInputField.text)
             return;
+
+        gameObject.SetActive(false);
 
         //Asetetaan TP aktiiviseksi
         tpObject.SetActive(true);

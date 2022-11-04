@@ -137,7 +137,7 @@ public class PlayerMovementv2 : MonoBehaviour
 
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(groundCheck.position, groundDistance);

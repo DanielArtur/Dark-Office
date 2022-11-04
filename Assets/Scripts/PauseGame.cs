@@ -46,7 +46,7 @@ public class PauseGame : MonoBehaviour
     public void ContinueGame()
     {
 
-
+        Cursor.lockState = CursorLockMode.Locked;
 
         Time.timeScale = 1f;
 

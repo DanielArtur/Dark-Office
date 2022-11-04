@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class LoseGame : MonoBehaviour
 {
 
+
+
     public GameObject losePanel;
 
     public GameObject mainMenuButton;
@@ -42,7 +44,7 @@ public class LoseGame : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
 
-
+        
     }
 
 

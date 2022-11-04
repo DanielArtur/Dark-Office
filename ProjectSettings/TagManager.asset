@@ -12,6 +12,7 @@ TagManager:
   - button f2
   - button f1
   - button f6
+  - WinGame
   layers:
   - Default
   - TransparentFX

@@ -28,6 +28,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private float attackEndTime;
 
+    [Header("Lose Game")]
+    [SerializeField] LoseGame loseGame;
+
     [Header("Other")]
     [SerializeField] private float walkingSpeed;
     [SerializeField] private float sprintingSpeed;
@@ -154,7 +157,9 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(attackEndTime);
 
-        
+        loseGame.loseGame();
+
+        Debug.Log("Dead");
     }
 
     private void Check()
@@ -187,7 +192,7 @@ public class EnemyController : MonoBehaviour
             state = EnemyState.patrol;
             agent.speed = walkingSpeed;
 
-           // AM.StopChaseMuscic();
+            AM.StopChaseMuscic();
         }
     }
 
@@ -201,7 +206,7 @@ public class EnemyController : MonoBehaviour
             state = EnemyState.chase;
             agent.speed = sprintingSpeed;
 
-            //M.PlayChaseMusic();
+            AM.PlayChaseMusic();
 
         }
         else if (patrolTurnTarget != null)

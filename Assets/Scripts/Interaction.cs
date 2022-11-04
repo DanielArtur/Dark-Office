@@ -21,12 +21,5 @@ public class Interaction : MonoBehaviour
             }
         }
     }
-    void InteractionCheck()
-    {
-
-    }
-    void OnPickUp()
-    {
-        
-    }
+    
 }
