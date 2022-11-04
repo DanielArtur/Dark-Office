@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
@@ -22,12 +23,28 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float checkTurnSpeed;
     private float checkTurnedAmount;
 
-    [Header("Player")]
+    [Header("Attack")]
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float attackDistance;
+    [SerializeField] private float attackEndTime;
+
+    [Header("Other")]
+    [SerializeField] private float walkingSpeed;
+    [SerializeField] private float sprintingSpeed;
+    [SerializeField] private float doorMoveSpeed;
+    [SerializeField] private float doorTurnSpeed;
+
     [SerializeField] private Transform player;
 
-    private EnemyState state;
+    [Header("Enemy Animator Controller")]
+    [SerializeField] private EnemyAnimationController enemyAnimationController;
 
-    private enum EnemyState
+    private EnemyState state;
+    private bool isAttacking;
+
+    public AudioManager AM;
+
+    public enum EnemyState
     {
         patrol,
         chase,
@@ -39,10 +56,16 @@ public class EnemyController : MonoBehaviour
     {
         currentPatrolPoint = -1;
         state = EnemyState.patrol;
+        agent.speed = walkingSpeed;
+
+        agent.autoTraverseOffMeshLink = false;
     }
 
     private void FixedUpdate()
     {
+        if (HandleOffMeshLink())
+            return;
+
         if (state == EnemyState.patrol)
             Patrol();
         else if (state == EnemyState.chase)
@@ -53,12 +76,81 @@ public class EnemyController : MonoBehaviour
             CheckTurn();
     }
 
+    private bool HandleOffMeshLink()
+    {
+        if (!agent.isOnOffMeshLink)
+            return false;
+        if (!agent.currentOffMeshLinkData.offMeshLink)
+        {
+            agent.CompleteOffMeshLink();
+            return true;
+        }
+
+        DoorInteraction door = agent.currentOffMeshLinkData.offMeshLink.gameObject.GetComponent<DoorInteraction>();
+        if (door == null)
+        {
+            agent.CompleteOffMeshLink();
+            return true;
+        }
+
+        if (door.IsOpen)
+        {
+            Vector3 targetDirection = agent.currentOffMeshLinkData.endPos - transform.position;
+            targetDirection.y = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetDirection), doorTurnSpeed);
+
+            Vector3 movement = Vector3.MoveTowards(transform.position, agent.currentOffMeshLinkData.endPos, doorMoveSpeed);
+            movement.y = transform.position.y;
+            transform.position = movement;
+
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(agent.currentOffMeshLinkData.endPos.x, agent.currentOffMeshLinkData.endPos.z)) < 0.01)
+            {
+                agent.CompleteOffMeshLink();
+                door.Interact();
+            }
+        }
+        else if (!door.IsActionRunning)
+        {
+            door.Interact();
+        }
+
+        return true;
+    }
+
     private void Chase()
     {
         agent.SetDestination(player.position);
 
         if (!CheckView())
+        {
             state = EnemyState.check;
+        }
+        else if (!isAttacking)
+        {
+            Collider[] targets = Physics.OverlapSphere(attackPoint.position, attackDistance);
+            for(int i = 0; i < targets.Length; i++)
+            {
+                if (targets[i].CompareTag("Player"))
+                {
+                    StartCoroutine(Attack());
+                    break;
+                }
+            }
+        }
+
+        enemyAnimationController.StartRunAnimation();
+    }
+
+    private IEnumerator Attack()
+    {
+        isAttacking = true;
+
+        enemyAnimationController.StartAttackAnimation();
+
+        yield return new WaitForSeconds(attackEndTime);
+
+        //Death
+        Debug.Log("Death");
     }
 
     private void Check()
@@ -79,6 +171,8 @@ public class EnemyController : MonoBehaviour
         transform.Rotate(0, checkTurnSpeed, 0);
         checkTurnedAmount += checkTurnSpeed;
 
+        enemyAnimationController.StartIdleAnimation();
+
         if (CheckView())
         {
             state = EnemyState.chase;
@@ -87,6 +181,9 @@ public class EnemyController : MonoBehaviour
         {
             currentPatrolPoint = -1;
             state = EnemyState.patrol;
+            agent.speed = walkingSpeed;
+
+            AM.StopChaseMuscic();
         }
     }
 
@@ -98,6 +195,10 @@ public class EnemyController : MonoBehaviour
             patrolTurnTarget = null;
 
             state = EnemyState.chase;
+            agent.speed = sprintingSpeed;
+
+            AM.PlayChaseMusic();
+
         }
         else if (patrolTurnTarget != null)
         {
@@ -114,10 +215,13 @@ public class EnemyController : MonoBehaviour
                 patrolTurnTarget = null;
             }
         }
-        else if (agent.remainingDistance < agent.stoppingDistance + 0.5)
+        else if (agent.remainingDistance < agent.stoppingDistance + 0.5 && !agent.pathPending)
         {
             NextPatrolPoint();
         }
+
+
+        enemyAnimationController.StartWalkAnimation();
     }
 
     public void NextPatrolPoint()
