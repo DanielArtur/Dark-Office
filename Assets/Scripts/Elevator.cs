@@ -12,6 +12,10 @@ public class Elevator : MonoBehaviour, IInteraction
     static bool isActive = false;
     //public TextMeshProUGUI playerInput;
 
+    [SerializeField] Animator elevatorAnimator;
+
+    //Oikean kerroken oikea objekti eli TP asetetaan aktiiviseksi
+    [SerializeField] GameObject tpObject;
 
 
 
@@ -25,14 +29,14 @@ public class Elevator : MonoBehaviour, IInteraction
         {
             passCodeInputField.gameObject.SetActive(true);
             isActive = true;
-            //Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.None;
             Debug.Log("Aktivoitu UI");
         }
         else
         {
             passCodeInputField.gameObject.SetActive(false);
             isActive = false;
-            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Locked;
             CheckCode();
             Debug.Log("Deaktivoitu UI");
         }
@@ -46,25 +50,30 @@ public class Elevator : MonoBehaviour, IInteraction
         }*/
 
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
 
     public void CheckCode()
     {
         if (codeTag.codeStorage != passCodeInputField.text)
             return;
-        Debug.Log("Hissi avautuu");
+
+        //Asetetaan TP aktiiviseksi
+        tpObject.SetActive(true);
+
+        //Debug.Log("Hissi avautuu");
         // Aloita hissi-animaatio
         // Sulje ovet
+        // Elevator open doors
+        elevatorAnimator.SetTrigger("Open");
+
+        //ELI kun pelaaja saa koodin auki, hissi avautuu,
+        //oottaa 2 sekkaa,(kun osuu collideriin (katso ElevatorTP)) hissi sulkeutuu ja kun pelaaja on teleportattu,
+        //toisen hissin ovi avautuu ja kun on ulkona(tarvitaan collider) tyylii ovi suljetaan esim.
+
+        //elevatorAnimator.SetBool("canOpen", false);
+
+        //elevatorAnimator.SetBool("canClose", true);
+
+        //elevatorAnimator.SetBool("canClose", false);
         // Joku pelaajan teleporttaus sekä pieni viive
         // Avaa seuraavan kerroksen ovet
         // Sulje niiden ovet
