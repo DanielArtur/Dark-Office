@@ -30,6 +30,7 @@ public class PlayerMovementv2 : MonoBehaviour
     float currentSpeed;
     public float currentStamina;
 
+    public static bool lockMovement = false;
 
     public Transform groundCheck;
     Vector3 velocity;
@@ -57,6 +58,9 @@ public class PlayerMovementv2 : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (lockMovement)
+            return;
 
 
         float x = Input.GetAxis("Horizontal");

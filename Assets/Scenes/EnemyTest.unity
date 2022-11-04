@@ -649,9 +649,9 @@ GameObject:
   - component: {fileID: 856831273}
   - component: {fileID: 856831272}
   - component: {fileID: 856831276}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1088,6 +1088,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyWithMesh Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 72697941962771669, guid: 56440d4bfbb125647a10f1f935c3553a,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.347
       objectReference: {fileID: 0}
     - target: {fileID: 72697941962771671, guid: 56440d4bfbb125647a10f1f935c3553a,
         type: 3}

@@ -38,5 +38,6 @@ public class EnemyAnimationController : MonoBehaviour
     public void StartAttackAnimation()
     {
         animator.SetTrigger("Punch");
+        
     }
 }
