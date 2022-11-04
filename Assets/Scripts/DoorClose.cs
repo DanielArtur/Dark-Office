@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class DoorClose : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Animator currentFloorAnimator;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (!other.CompareTag("Player"))
+            return;
+        currentFloorAnimator.SetTrigger("Close");
+        gameObject.SetActive(false);
     }
 }

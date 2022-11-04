@@ -14,6 +14,8 @@ public class Elevator : MonoBehaviour, IInteraction
 
     [SerializeField] Animator elevatorAnimator;
 
+    //Oikean kerroken oikea objekti eli TP asetetaan aktiiviseksi
+    [SerializeField] GameObject tpObject;
 
 
 
@@ -48,28 +50,20 @@ public class Elevator : MonoBehaviour, IInteraction
         }*/
 
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
 
     public void CheckCode()
     {
         if (codeTag.codeStorage != passCodeInputField.text)
             return;
 
+        //Asetetaan TP aktiiviseksi
+        tpObject.SetActive(true);
+
         //Debug.Log("Hissi avautuu");
         // Aloita hissi-animaatio
         // Sulje ovet
         // Elevator open doors
-        elevatorAnimator.SetBool("canOpen", true);
+        elevatorAnimator.SetTrigger("Open");
 
         //ELI kun pelaaja saa koodin auki, hissi avautuu,
         //oottaa 2 sekkaa,(kun osuu collideriin (katso ElevatorTP)) hissi sulkeutuu ja kun pelaaja on teleportattu,

@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: canClose
+    m_ConditionEvent: Close
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3956556489139281447}
@@ -34,18 +34,18 @@ AnimatorController:
   m_Name: elevator cabin
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: canOpen
-    m_Type: 4
+  - m_Name: Open
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: canClose
-    m_Type: 4
+    m_Controller: {fileID: 0}
+  - m_Name: Close
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -80,10 +80,10 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -20, y: 0, z: 0}
-  m_EntryPosition: {x: 20, y: 80, z: 0}
+  m_EntryPosition: {x: -30, y: 70, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 4076094947550668086}
+  m_DefaultState: {fileID: 3956556489139281447}
 --- !u!1102 &3956556489139281447
 AnimatorState:
   serializedVersion: 6
@@ -147,7 +147,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: canOpen
+    m_ConditionEvent: Open
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4076094947550668086}
