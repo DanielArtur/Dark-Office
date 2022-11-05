@@ -25,6 +25,7 @@ public class DoorInteraction : MonoBehaviour, IInteraction
     {
         isActionRunning = true;
         animator.SetTrigger("Open");
+        AudioManager.Instance.PlayDoorSound();
     }
 
     public void OpenCompleted()
@@ -37,6 +38,7 @@ public class DoorInteraction : MonoBehaviour, IInteraction
     {
         isActionRunning = true;
         animator.SetTrigger("Close");
+        AudioManager.Instance.PlayDoorSound();
     }
 
     public void CloseCompleted()
