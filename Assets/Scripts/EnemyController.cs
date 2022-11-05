@@ -193,6 +193,7 @@ public class EnemyController : MonoBehaviour
             agent.speed = walkingSpeed;
 
             AM.StopChaseMuscic();
+            AM.PlayAmbientMusic();
         }
     }
 
@@ -207,7 +208,7 @@ public class EnemyController : MonoBehaviour
             agent.speed = sprintingSpeed;
 
             AM.PlayChaseMusic();
-
+            AM.StopAmbientMuscic();
         }
         else if (patrolTurnTarget != null)
         {

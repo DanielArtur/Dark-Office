@@ -12,25 +12,11 @@ public class AudioManager : MonoBehaviour
     private AudioSource menuMusic;
     private AudioSource winMusic;
     private AudioSource chaseMusic;
+    private AudioSource ambientMusic;
 
 
-    
-
-    //public static AudioManager instance;
-
-
-    void Awake()
-    {
-
-        
-    }
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
-
         mySounds = GetComponents<AudioSource>();
 
         menuMusic = mySounds[0];
@@ -39,50 +25,37 @@ public class AudioManager : MonoBehaviour
 
         chaseMusic = mySounds[2];
 
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ambientMusic = mySounds[3];
     }
 
 
     public void PlayMenuMusic()
     {
-
         menuMusic.Play();
-
-        print("hello");
-
     }
 
     public void PlayWinMusic()
     {
-
         winMusic.Play();
-
-        print("moi");
-
     }
 
     public void PlayChaseMusic()
     {
-
         chaseMusic.Play();
-
-        
     }
 
     public void StopChaseMuscic()
     {
-
-
         chaseMusic.Stop();
-
-
     }
 
+    public void PlayAmbientMusic()
+    {
+        ambientMusic.Play();
+    }
 
+    public void StopAmbientMuscic()
+    {
+        ambientMusic.Stop();
+    }
 }

@@ -15,6 +15,10 @@ public class ElevatorTP : MonoBehaviour
     [SerializeField] float tpHeight;
     [SerializeField] float tpWaitTime = 2.5f;
 
+    [Header("Enemy")]
+    [SerializeField] private GameObject upperFloorEnemy;
+    [SerializeField] private GameObject currentFloorEnemy;
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -26,14 +30,16 @@ public class ElevatorTP : MonoBehaviour
     {
         currentFloorAnimator.SetTrigger("Close");
 
+        if (upperFloorEnemy != null)
+            upperFloorEnemy.SetActive(true);
 
         yield return new WaitForSeconds(tpWaitTime);
 
-
         playerTransform.transform.position = new Vector3(playerTransform.transform.position.x, tpHeight, playerTransform.transform.position.z);
-
         
         upperFloorAnimator.SetTrigger("Open");
 
+        if (currentFloorEnemy != null)
+            currentFloorEnemy.SetActive(false);
     }
 }
