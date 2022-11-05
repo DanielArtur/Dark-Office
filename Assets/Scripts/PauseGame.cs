@@ -11,18 +11,6 @@ public class PauseGame : MonoBehaviour
     public GameObject mainMenuButton;
 
 
-
-
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
 
@@ -64,7 +52,7 @@ public class PauseGame : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
 
 
     }
